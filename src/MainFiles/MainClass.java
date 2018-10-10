@@ -57,8 +57,8 @@ public class MainClass extends jslEngine {
             dotPairs.add(new DotPair(WW()/2, 200));
             dotPairs.add(new DotPair(WW()/2, 300));
 
-            head = new SingleDot(WW()/2,40, null);
-            end = new SingleDot(WW()/2, WH()-40, null);
+            head = new SingleDot(WW()/2+5,40, null);
+            end = new SingleDot(WW()/2+5, WH()-40, null);
         }
 
         public void update(float et) {
@@ -126,7 +126,7 @@ public class MainClass extends jslEngine {
             jsl.add(this);
 
             for (int i=0; i<dots.length; i++) {
-                dots[i] = new Dot(x + i*20, y, this);
+                dots[i] = new Dot(x + i*10, y, this);
             }
             moved();
             this.y = y;
