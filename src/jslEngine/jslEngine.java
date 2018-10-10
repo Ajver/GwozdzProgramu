@@ -135,6 +135,10 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         }
         public void onEnter() { this.settings = onHoverSettings; }
         public void onLeave() { this.settings = defaultSettings; }
+        public void onClick() {}
+        public void onUnclick() {}
+        public void onMove() {}
+        public void onDrag() {}
         public void setDefaultSettings(jslSettings s) { this.defaultSettings = this.settings = s; }
         public void setOnHoverSettings(jslSettings s) { this.onHoverSettings = s; }
         public jslSettings getDefaultSettings() { return defaultSettings; }
@@ -212,6 +216,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             for(int i=objects.size()-1; i>=0; i--) {
                 jslObject o = objects.get(i);
                 if(o.isPointIn(e.getX(), e.getY())) {
+                    o.onMove();
                     onMove(o);
                     if(!o.hover) {
                         o.hover = true;
@@ -224,6 +229,34 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
                     o.onLeave();
                     onLeave(o);
                 }
+            }
+        }
+        public void mouseDragged(MouseEvent e) {
+            for(int i=objects.size()-1; i>=0; i--) {
+                jslObject o = objects.get(i);
+                if(o.isPointIn(e.getX(), e.getY())) {
+                    o.onDrag();
+                    onDrag(o);
+                    return;
+                }
+            }
+        }
+        public void mousePressed(MouseEvent e) {
+            for(int i=objects.size()-1; i>=0; i--) {
+                jslObject o = objects.get(i);
+                if(o.isPointIn(e.getX(), e.getY())) {
+                    o.onClick();
+                    onClick(o);
+                    return;
+                }
+            }
+        }
+        public void mouseReleased(MouseEvent e) {
+            for(int i=objects.size()-1; i>=0; i--) {
+                jslObject o = objects.get(i);
+                o.onUnclick();
+                onUnclick(o);
+                return;
             }
         }
     }
@@ -345,9 +378,9 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     public void mouseClicked(MouseEvent e) { this.mouse = e; onMouseClicked(); }
     public void mouseEntered(MouseEvent e) { this.mouse = e; onMouseEntered(); }
     public void mouseExited(MouseEvent e) { this.mouse = e; onMouseExited(); }
-    public void mousePressed(MouseEvent e) { this.mouse = e; onMousePressed(); }
-    public void mouseReleased(MouseEvent e) { this.mouse = e; onMouseReleased(); }
-    public void mouseDragged(MouseEvent e) { this.mouse = e; onMouseDragged(); }
+    public void mousePressed(MouseEvent e) { this.mouse = e; jsl.mousePressed(e); onMousePressed(); }
+    public void mouseReleased(MouseEvent e) { this.mouse = e; jsl.mouseReleased(e); onMouseReleased(); }
+    public void mouseDragged(MouseEvent e) { this.mouse = e; jsl.mouseDragged(e); onMouseDragged(); }
     public void mouseMoved(MouseEvent e) { this.mouse = e; jsl.mouseMoved(e); onMouseMoved(); }
 
     public int WW() { return getWidth(); }
