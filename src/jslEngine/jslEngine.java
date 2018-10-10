@@ -185,6 +185,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     }
     // Object of this class is created (and called "jsl")
     public class jslManager {
+        private jslObject clickedOb = null;
         public jslSettings defaulButtonSettings = new jslSettings();
         public jslSettings onHoverButtonSettings = defaulButtonSettings;
         private LinkedList<jslObject> objects = new LinkedList<>();
@@ -232,12 +233,18 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             }
         }
         public void mouseDragged(MouseEvent e) {
-            for(int i=objects.size()-1; i>=0; i--) {
-                jslObject o = objects.get(i);
-                if(o.isPointIn(e.getX(), e.getY())) {
-                    o.onDrag();
-                    onDrag(o);
-                    return;
+            if(clickedOb != null) {
+                clickedOb.onDrag();
+                onDrag(clickedOb);
+            }else {
+                for (int i = objects.size() - 1; i >= 0; i--) {
+                    jslObject o = objects.get(i);
+                    if (o.isPointIn(e.getX(), e.getY())) {
+                        clickedOb = o;
+                        o.onDrag();
+                        onDrag(o);
+                        return;
+                    }
                 }
             }
         }
@@ -245,6 +252,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             for(int i=objects.size()-1; i>=0; i--) {
                 jslObject o = objects.get(i);
                 if(o.isPointIn(e.getX(), e.getY())) {
+                    clickedOb = o;
                     o.onClick();
                     onClick(o);
                     return;
@@ -252,6 +260,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             }
         }
         public void mouseReleased(MouseEvent e) {
+            clickedOb = null;
             for(int i=objects.size()-1; i>=0; i--) {
                 jslObject o = objects.get(i);
                 o.onUnclick();

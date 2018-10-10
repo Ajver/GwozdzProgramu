@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e62dd41-5565-454f-8b72-c01940c3b9e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$WindowType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$WindowType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainFiles/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainFiles/MainClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jslEngine/jslEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jslEngine/jslEngine.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -39,12 +31,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1743" />
+          <entry key="java" value="1820" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1743" />
+          <entry key="JAVA" value="1820" />
         </counts>
       </usages-collector>
     </session>
@@ -68,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/jslEngine/jslEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-350">
-              <caret line="258" column="23" selection-start-line="258" selection-start-column="23" selection-end-line="258" selection-end-column="23" />
+            <state relative-caret-position="455">
+              <caret line="262" column="29" selection-start-line="262" selection-start-column="29" selection-end-line="262" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -90,8 +82,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/MainFiles/Pin.java" />
-        <option value="$PROJECT_DIR$/src/jslEngine/jslEngine.java" />
         <option value="$PROJECT_DIR$/src/MainFiles/MainClass.java" />
+        <option value="$PROJECT_DIR$/src/jslEngine/jslEngine.java" />
       </list>
     </option>
   </component>
@@ -140,7 +132,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539197000930" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539197462510" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunDashboard">
@@ -237,8 +229,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jslEngine/jslEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-350">
-          <caret line="258" column="23" selection-start-line="258" selection-start-column="23" selection-end-line="258" selection-end-column="23" />
+        <state relative-caret-position="455">
+          <caret line="262" column="29" selection-start-line="262" selection-start-column="29" selection-end-line="262" selection-end-column="29" />
         </state>
       </provider>
     </entry>
