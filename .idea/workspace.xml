@@ -2,6 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e62dd41-5565-454f-8b72-c01940c3b9e7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass$Dot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass$Dot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass$DotPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass$DotPair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass$Pin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/MainFiles/MainClass$Pin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$WindowType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$WindowType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslSettings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine$jslSettings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GwozdzProgramu/jslEngine/jslEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainFiles/MainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainFiles/MainClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jslEngine/jslEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jslEngine/jslEngine.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -31,23 +42,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1820" />
+          <entry key="java" value="3349" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1820" />
+          <entry key="JAVA" value="3349" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MainFiles/MainClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="486">
+              <caret line="174" column="31" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#554#555#0" expanded="true" />
@@ -57,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jslEngine/jslEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="262" column="29" selection-start-line="262" selection-start-column="29" selection-end-line="262" selection-end-column="29" />
+            <state relative-caret-position="5158">
+              <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -82,8 +93,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/MainFiles/Pin.java" />
-        <option value="$PROJECT_DIR$/src/MainFiles/MainClass.java" />
         <option value="$PROJECT_DIR$/src/jslEngine/jslEngine.java" />
+        <option value="$PROJECT_DIR$/src/MainFiles/MainClass.java" />
       </list>
     </option>
   </component>
@@ -132,7 +143,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539197462510" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539204185467" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunDashboard">
@@ -184,7 +195,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.329718" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.12906724" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.25813448" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -215,22 +226,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/jslEngine/jslEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5158">
+          <caret line="235" column="29" selection-start-line="235" selection-start-column="29" selection-end-line="235" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MainFiles/MainClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="486">
+          <caret line="174" column="31" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#554#555#0" expanded="true" />
             <element signature="e#585#586#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/jslEngine/jslEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="262" column="29" selection-start-line="262" selection-start-column="29" selection-end-line="262" selection-end-column="29" />
         </state>
       </provider>
     </entry>

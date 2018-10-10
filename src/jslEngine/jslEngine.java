@@ -41,6 +41,8 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Another classes You can use
     public class jslSettings {
+        public boolean isVisible = true;
+        public boolean isRendering = true;
         public boolean fontChanged = true;
         public Color bgColor = new Color(100, 100,100);
         public Color txtColor = new Color(255, 255, 255);
@@ -64,9 +66,9 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         protected float velX, velY, velR;
         protected float rotate, rotateX, rotateY;
         protected float translateX, translateY;
-        public jslSettings settings;
-        protected jslSettings defaultSettings;
-        protected jslSettings onHoverSettings;
+        public jslSettings settings = new jslSettings();
+        protected jslSettings defaultSettings = new jslSettings();
+        protected jslSettings onHoverSettings = new jslSettings();
         public boolean hover = false;
         public void setPosition(float x, float y) {
             setX(x);
@@ -211,39 +213,59 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             for(jslObject o : objects) { o.update(et); }
         }
         public void render(Graphics g) {
-            for(jslObject o : objects) { o.render(g); }
+            for(jslObject o : objects) {
+                if(o.settings.isVisible) {
+                    if(o.settings.isRendering) {
+                        o.render(g);
+                    }
+                }
+            }
         }
         public void mouseMoved(MouseEvent e) {
             for(int i=objects.size()-1; i>=0; i--) {
                 jslObject o = objects.get(i);
-                if(o.isPointIn(e.getX(), e.getY())) {
-                    o.onMove();
-                    onMove(o);
-                    if(!o.hover) {
-                        o.hover = true;
-                        o.onEnter();
-                        onEnter(o);
+                if (o.settings.isVisible) {
+                    if (o.isPointIn(e.getX(), e.getY())) {
+                        o.onMove();
+                        onMove(o);
+                        if (!o.hover) {
+                            o.hover = true;
+                            o.onEnter();
+                            onEnter(o);
+                        }
+                        for(i=i-1; i>=0; i--) {
+                            o = objects.get(i);
+                            if(o.hover) {
+                                o.hover = false;
+                                o.onLeave();
+                                onLeave(o);
+                            }
+                        }
+                        return;
+                    } else if (o.hover) {
+                        o.hover = false;
+                        o.onLeave();
+                        onLeave(o);
                     }
-                    return;
-                }else if(o.hover) {
-                    o.hover = false;
-                    o.onLeave();
-                    onLeave(o);
                 }
             }
         }
         public void mouseDragged(MouseEvent e) {
             if(clickedOb != null) {
-                clickedOb.onDrag();
-                onDrag(clickedOb);
+                if (clickedOb.settings.isVisible) {
+                    clickedOb.onDrag();
+                    onDrag(clickedOb);
+                }
             }else {
                 for (int i = objects.size() - 1; i >= 0; i--) {
                     jslObject o = objects.get(i);
-                    if (o.isPointIn(e.getX(), e.getY())) {
-                        clickedOb = o;
-                        o.onDrag();
-                        onDrag(o);
-                        return;
+                    if (o.settings.isVisible) {
+                        if (o.isPointIn(e.getX(), e.getY())) {
+                            clickedOb = o;
+                            o.onDrag();
+                            onDrag(o);
+                            return;
+                        }
                     }
                 }
             }
