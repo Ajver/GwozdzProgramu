@@ -131,7 +131,6 @@ public class MainClass extends jslEngine {
             moved();
             this.y = y;
             setH(dots[0].getH());
-            System.out.println(y);
         }
 
         public void update(float et) {
@@ -177,7 +176,11 @@ public class MainClass extends jslEngine {
         }
 
         public void onEnter() {
+            setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
+        }
 
+        public void onLeave() {
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
 
 //
@@ -229,6 +232,16 @@ public class MainClass extends jslEngine {
 //            setY(mouse.getY()-getH()/2);
 
             pair.moved();
+        }
+
+        public void onEnter() {
+            settings = onHoverSettings;
+            setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+        }
+
+        public void onLeave() {
+            settings = defaultSettings;
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
     }
 

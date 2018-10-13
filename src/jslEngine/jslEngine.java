@@ -256,19 +256,20 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
                     clickedOb.onDrag();
                     onDrag(clickedOb);
                 }
-            }else {
-                for (int i = objects.size() - 1; i >= 0; i--) {
-                    jslObject o = objects.get(i);
-                    if (o.settings.isVisible) {
-                        if (o.isPointIn(e.getX(), e.getY())) {
-                            clickedOb = o;
-                            o.onDrag();
-                            onDrag(o);
-                            return;
-                        }
-                    }
-                }
             }
+//            else {
+//                for (int i = objects.size() - 1; i >= 0; i--) {
+//                    jslObject o = objects.get(i);
+//                    if (o.settings.isVisible) {
+//                        if (o.isPointIn(e.getX(), e.getY())) {
+//                            clickedOb = o;
+//                            o.onDrag();
+//                            onDrag(o);
+//                            return;
+//                        }
+//                    }
+//                }
+//            }
         }
         public void mousePressed(MouseEvent e) {
             for(int i=objects.size()-1; i>=0; i--) {
