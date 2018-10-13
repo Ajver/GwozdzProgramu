@@ -1,9 +1,7 @@
 package MainFiles;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import jslEngine.*;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -11,11 +9,15 @@ import java.util.LinkedList;
 public class MainClass extends jslEngine {
 
     private boolean allPointVisible = false;
+    private jslButton newPoint;
 
     public MainClass() {
         start("Gwóźdź programu", 700, 450);
+        setAntialiasing(true);
 
         Pin pin = new Pin();
+
+        newPoint = jsl.newButton("Nowy punkt");
 
         jsl.add(pin);
     }
@@ -44,6 +46,12 @@ public class MainClass extends jslEngine {
         }
     }
 
+    protected void onUnclick(jslObject o) {
+        if(o == newPoint) {
+            o.settings.bgColor = new Color(255, 100, 255);
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////       Classes       //////////////////////////////////////////////////
 
@@ -53,12 +61,12 @@ public class MainClass extends jslEngine {
         private SingleDot head, end;
 
         public Pin() {
-            dotPairs.add(new DotPair(WW()/2, 100));
-            dotPairs.add(new DotPair(WW()/2, 200));
-            dotPairs.add(new DotPair(WW()/2, 300));
+            dotPairs.add(new DotPair(0, 100));
+            dotPairs.add(new DotPair(0, 200));
+            dotPairs.add(new DotPair(0, 300));
 
-            head = new SingleDot(WW()/2+5,40, null);
-            end = new SingleDot(WW()/2+5, WH()-40, null);
+            head = new Head(0,40, null);
+            end = new SingleDot(0, WH()-40, null);
         }
 
         public void update(float et) {
@@ -69,12 +77,6 @@ public class MainClass extends jslEngine {
 
         public void render(Graphics g) {
             if(dotPairs.size() > 0) {
-                Graphics2D g2 = (Graphics2D)g;
-                RenderingHints rh = new RenderingHints(
-                        RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setRenderingHints(rh);
-
                 int[] xP = new int[dotPairs.size()*2+2];
                 int[] yP = new int[dotPairs.size()*2+2];
 
@@ -126,7 +128,7 @@ public class MainClass extends jslEngine {
             jsl.add(this);
 
             for (int i=0; i<dots.length; i++) {
-                dots[i] = new Dot(x + i*10, y, this);
+                dots[i] = new Dot(x + i*10 - 10, y, this);
             }
             moved();
             this.y = y;
@@ -156,6 +158,7 @@ public class MainClass extends jslEngine {
             for (int i=0; i<dots.length; i++) {
                 dots[i].setY(y);
             }
+            this.y = y;
         }
 
         public void moved() {
@@ -183,6 +186,10 @@ public class MainClass extends jslEngine {
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
 
+        public void onDrag() {
+            setY(mouse.getY());
+        }
+
 //
 //        public void onClick() {
 //            for (int i=0; i<dots.length; i++) {
@@ -200,7 +207,7 @@ public class MainClass extends jslEngine {
         public Dot(float x, float y, DotPair pair) {
             this.pair = pair;
             setPosition(x, y);
-            setSize(20, 20);
+            setSize(10, 10);
             defaultSettings.isRendering = false;
             settings = defaultSettings;
             defaultSettings.bgColor =
@@ -259,7 +266,37 @@ public class MainClass extends jslEngine {
 
         public void onDrag() {
             setX(mouse.getX()-getW()/2);
-//            setY(mouse.getY()-getH()/2);
+
+            float ny = mouse.getY()-getH()/2;
+
+            setY(ny);
+        }
+
+        public void onEnter() {
+            settings = onHoverSettings;
+            setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+        }
+    }
+
+    private class Head extends SingleDot {
+
+        public Head(float x, float y, DotPair pair) {
+            super(x, y, pair);
+            w = 30;
+            h = 15;
+        }
+
+        public void render(Graphics g) {
+            g.setColor(new Color(200, 200, 200));
+            g.fillOval((int)x-5, (int)y, (int)w, (int)h);
+
+            if(settings.isRendering) {
+                g.setColor(settings.bgColor);
+                g.fillOval((int) (x), (int) (y), (int) w, (int) h);
+            }else if(allPointVisible) {
+                g.setColor(settings.txtColor);
+                g.drawOval((int) (x), (int) (y), (int) w, (int) h);
+            }
         }
     }
 }

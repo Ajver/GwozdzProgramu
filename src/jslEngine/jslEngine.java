@@ -1,7 +1,5 @@
 package jslEngine;
 
-import com.sun.scenario.Settings;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,6 +12,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     public KeyEvent key = null;
     public MouseEvent mouse = null;
     public jslManager jsl;
+    private boolean antialiasing = false;
 
     // Those functions are to override
     protected abstract void update(float et);
@@ -283,12 +282,12 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             }
         }
         public void mouseReleased(MouseEvent e) {
-            clickedOb = null;
-            for(int i=objects.size()-1; i>=0; i--) {
-                jslObject o = objects.get(i);
-                o.onUnclick();
-                onUnclick(o);
-                return;
+            if(clickedOb != null) {
+                if (clickedOb.isPointIn(e.getX(), e.getY())) {
+                    clickedOb.onUnclick();
+                    onUnclick(clickedOb);
+                }
+                clickedOb = null;
             }
         }
     }
@@ -311,6 +310,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     private int fps = 0;
 
     // Functions for window controlling
+    protected void setAntialiasing(boolean flag) { antialiasing = flag; }
     protected void createWindow(String title, int w, int h, WindowType type) {
         if(isWindow) return;
         isWindow = true;
@@ -372,6 +372,13 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             return;
         }
         Graphics g = bs.getDrawGraphics();
+        if(antialiasing) {
+            Graphics2D g2 = (Graphics2D)g;
+            RenderingHints rh = new RenderingHints(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHints(rh);
+        }
         g.setColor(new Color(30, 30, 30));
         g.fillRect(0, 0, WW(), WH());
         jsl.render(g);
