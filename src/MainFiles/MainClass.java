@@ -127,9 +127,15 @@ public class MainClass extends jslEngine {
 
         public Dot[] dots = new Dot[2];
 
+        public DotPair() {}
+
         public DotPair(float x, float y) {
             jsl.add(this);
 
+            createDots(x, y);
+        }
+
+        protected void createDots(float x, float y) {
             for (int i=0; i<dots.length; i++) {
                 dots[i] = new Dot(x + i*10 - 10, y, this);
             }
@@ -220,6 +226,11 @@ public class MainClass extends jslEngine {
             onHoverSettings.txtColor =
             settings.txtColor = new Color(11, 70, 33);
 
+            setMaxX(WW()-w);
+            setMinX(0);
+            setMaxY(WH()-h);
+            setMinY(0);
+
             jsl.add(this);
         }
 
@@ -283,22 +294,29 @@ public class MainClass extends jslEngine {
 
     private class Head extends DotPair {
 
+        private float hx, hy;
+        private float hw = 30, hh = 15;
+
         public Head(float x, float y) {
-            super(x, y);
-            w = 30;
-            h = 15;
+            this.hx = x;
+            this.hy = y;
+
+            createDots(x, y);
         }
 
         public void render(Graphics g) {
             g.setColor(new Color(200, 200, 200));
-            g.fillOval((int)x-5, (int)y, (int)w, (int)h);
+            g.fillOval((int)hx, (int)hy, (int)hw, (int)hh);
 
-            if(settings.isRendering) {
-                g.setColor(settings.bgColor);
-                g.fillOval((int) (x), (int) (y), (int) w, (int) h);
-            }else if(allPointVisible) {
-                g.setColor(settings.txtColor);
-                g.drawOval((int) (x), (int) (y), (int) w, (int) h);
+            if(hover) {
+                g.setColor(new Color(45, 27, 27));
+                g.drawLine((int)(dots[0].getX()+dots[0].getW()/2), (int)(dots[0].getY()+dots[0].getH()/2),
+                        (int)(dots[1].getX()+dots[0].getW()/2), (int)(dots[1].getY()+dots[0].getH()/2));
+                //g.fillRect((int)x, (int)y, (int)w, (int)h);
+            }
+
+            for (int i=0; i<dots.length; i++) {
+                dots[i].render(g);
             }
         }
     }

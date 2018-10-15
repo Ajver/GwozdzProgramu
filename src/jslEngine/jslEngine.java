@@ -45,7 +45,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         public boolean fontChanged = true;
         public Color bgColor = new Color(100, 100,100);
         public Color txtColor = new Color(255, 255, 255);
-        public float txtX, txtY;
+        public float txtX = 0, txtY = 0;
         private String fontName = "arial";
         private int fontType = 0;
         private int fontSize = 16;
