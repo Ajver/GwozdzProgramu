@@ -59,6 +59,8 @@ public class MainClass extends jslEngine {
     ///////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////       Classes       //////////////////////////////////////////////////
 
+    private float trX;
+
     private class Pin extends jslObject {
 
         private LinkedList<DotPair> dotPairs = new LinkedList<>();
@@ -66,6 +68,8 @@ public class MainClass extends jslEngine {
         private Head head;
 
         public Pin() {
+            trX = WW()/3;
+
             x = WW()/2;
             w = 10;
             dotPairs.add(new DotPair(0, 100));
@@ -74,6 +78,13 @@ public class MainClass extends jslEngine {
 
             head = new Head(0,40);
             end = new End(0, WH()-40, null);
+
+            head.translateX(trX);
+            end.translateX(trX);
+
+            for(DotPair d : dotPairs) {
+                d.translateX(trX);
+            }
         }
 
         public void update(float et) {

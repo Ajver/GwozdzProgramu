@@ -61,6 +61,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         public int getFontSize() { return fontSize; }
     }
     public abstract class jslObject {
+        protected boolean isTranslating = true;
         protected boolean isMaxX = false, isMaxY = false, isMaxW = false, isMaxH = false,
                 isMinX = false, isMinY = false, isMinW = false, isMinH = false;
         protected float x, y, w, h, maxX, maxY, maxW, maxH, minX, minY, minW, minH;
@@ -162,8 +163,9 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         }
         public void setTranslateX(float tx) { this.translateX = tx; }
         public void setTranslateY(float ty) { this.translateY = ty; }
-        public float getX() { return x+translateX; }
-        public float getY() { return y+translateY; }
+        public void setIsTranslating(boolean flag) { this.isTranslating = flag; }
+        public float getX() { return x + (isTranslating ? translateX : 0); }
+        public float getY() { return y + (isTranslating ? translateY : 0); }
         public float getW() { return w; }
         public float getH() { return h; }
         public float getVelX() { return velX; }
@@ -172,8 +174,8 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         public float getRotate() { return rotate; }
         public float getRotateX() { return rotateX; }
         public float getRotateY() { return rotateY; }
-        public float getTranslateX() { return translateX; }
-        public float getTranslateY() { return translateY; }
+        public float getTranslateX() { return (isTranslating ? translateX : 0); }
+        public float getTranslateY() { return (isTranslating ? translateY : 0); }
         protected void update(float et) {
             x += velX * et;
             y += velY * et;
@@ -181,8 +183,6 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         }
         protected void render(Graphics g) {}
         public boolean isPointIn(float px, float py) {
-            px -= translateX;
-            py -= translateY;
             if(rotate != 0.0f) {
                 float diffX = px - rotateX;
                 float diffY = rotateY - py;
@@ -257,7 +257,12 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             translateX(tx);
             translateY(ty);
         }
-        public void translateX(float tx) { this.translateX += tx; }
+        public void translateX(float tx) {
+            this.translateX += tx;
+            for(jslObject o : objects) {
+                o.translateX(tx);
+            }
+        }
         public void translateY(float ty) { this.translateY += ty; }
         public void setTranslate(float tx, float ty) {
             setTranslateX(tx);
