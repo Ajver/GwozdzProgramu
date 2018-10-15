@@ -58,15 +58,18 @@ public class MainClass extends jslEngine {
     private class Pin extends jslObject {
 
         private LinkedList<DotPair> dotPairs = new LinkedList<>();
-        private SingleDot head, end;
+        private SingleDot end;
+        private Head head;
 
         public Pin() {
-            dotPairs.add(new DotPair(0, 100));
-            dotPairs.add(new DotPair(0, 200));
-            dotPairs.add(new DotPair(0, 300));
+            x = WW()/2;
+            w = 10;
+            dotPairs.add(new DotPair(x-w, 100));
+            dotPairs.add(new DotPair(x-w, 200));
+            dotPairs.add(new DotPair(x-w, 300));
 
-            head = new Head(0,40, null);
-            end = new SingleDot(0, WH()-40, null);
+            head = new Head(x-w,40);
+            end = new SingleDot(x-w, WH()-40, null);
         }
 
         public void update(float et) {
@@ -278,10 +281,10 @@ public class MainClass extends jslEngine {
         }
     }
 
-    private class Head extends SingleDot {
+    private class Head extends DotPair {
 
-        public Head(float x, float y, DotPair pair) {
-            super(x, y, pair);
+        public Head(float x, float y) {
+            super(x, y);
             w = 30;
             h = 15;
         }

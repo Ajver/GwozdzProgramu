@@ -61,7 +61,9 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         public int getFontSize() { return fontSize; }
     }
     public abstract class jslObject {
-        protected float x, y, w, h;
+        protected boolean isMaxX = false, isMaxY = false, isMaxW = false, isMaxH = false,
+                isMinX = false, isMinY = false, isMinW = false, isMinH = false;
+        protected float x, y, w, h, maxX, maxY, maxW, maxH, minX, minY, minW, minH;
         protected float velX, velY, velR;
         protected float rotate, rotateX, rotateY;
         protected float translateX, translateY;
@@ -73,14 +75,70 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             setX(x);
             setY(y);
         }
-        public void setX(float x) { this.x = x; }
-        public void setY(float y) { this.y = y; }
+        public void setX(float x) {
+            if(isMinX) { x = Math.max(x, minX); }
+            if(isMaxX) { x = Math.min(x, maxX); }
+            this.x = x;
+        }
+        public void setY(float y) {
+            if(isMinY) { y = Math.max(y, minY); }
+            if(isMaxY) { y = Math.min(y, maxY); }
+            this.y = y;
+        }
         public void setSize(float w, float h) {
             setW(w);
             setH(h);
         }
-        public void setW(float w) { this.w = w; }
-        public void setH(float h) { this.h = h; }
+        public void setW(float w) {
+            if(isMinW) { w = Math.max(w, minW); }
+            if(isMaxW) { w = Math.min(w, maxW); }
+            this.w = w;
+        }
+        public void setH(float h) {
+            if(isMinH) { h = Math.max(h, minH); }
+            if(isMaxH) { h = Math.min(h, maxH); }
+            this.h = h;
+        }
+        public void setMaxX(boolean flag) { this.isMaxX = flag; }
+        public void setMaxY(boolean flag) { this.isMaxY = flag; }
+        public void setMaxW(boolean flag) { this.isMaxW = flag; }
+        public void setMaxH(boolean flag) { this.isMaxH = flag; }
+        public void setMaxX(float maxX) {
+            this.maxX = maxX;
+            isMaxX = true;
+        }
+        public void setMaxY(float maxY) {
+            this.maxY = maxY;
+            isMaxY = true;
+        }
+        public void setMaxW(float maxW) {
+            this.maxW = maxW;
+            isMaxW = true;
+        }
+        public void setMaxH(float maxH) {
+            this.maxH = maxH;
+            isMaxH = true;
+        }
+        public void setMinX(boolean flag) { this.isMinX = flag; }
+        public void setMinY(boolean flag) { this.isMinY = flag; }
+        public void setMinW(boolean flag) { this.isMinW = flag; }
+        public void setMinH(boolean flag) { this.isMinH = flag; }
+        public void setMinX(float minX) {
+            this.minX = minX;
+            isMinX = true;
+        }
+        public void setMinY(float minY) {
+            this.minY = minY;
+            isMinY = true;
+        }
+        public void setMinW(float minW) {
+            this.minW = minW;
+            isMinW = true;
+        }
+        public void setMinH(float minH) {
+            this.minH = minH;
+            isMinH = true;
+        }
         public void setVelX(float velX) { this.velX = velX; }
         public void setVelY(float velY) { this.velY = velY; }
         public void setVelR(float velR) { this.velR = velR; }
@@ -186,11 +244,24 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     }
     // Object of this class is created (and called "jsl")
     public class jslManager {
+        private float translateX = 0, translateY = 0;
         private jslObject clickedOb = null;
         public jslSettings defaulButtonSettings = new jslSettings();
         public jslSettings onHoverButtonSettings = defaulButtonSettings;
         private LinkedList<jslObject> objects = new LinkedList<>();
         public jslManager() {}
+        public void translate(float tx, float ty) {
+            translateX(tx);
+            translateY(ty);
+        }
+        public void translateX(float tx) { this.translateX += tx; }
+        public void translateY(float ty) { this.translateY += ty; }
+        public void setTranslate(float tx, float ty) {
+            setTranslateX(tx);
+            setTranslateY(ty);
+        }
+        public void setTranslateX(float tx) { this.translateX = tx; }
+        public void setTranslateY(float ty) { this.translateY = ty; }
         public jslButton newButton() {
             return newButton("Button");
         }
@@ -212,6 +283,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             for(jslObject o : objects) { o.update(et); }
         }
         public void render(Graphics g) {
+            g.translate((int)translateX, (int)translateY);
             for(jslObject o : objects) {
                 if(o.settings.isVisible) {
                     if(o.settings.isRendering) {
@@ -219,6 +291,7 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
                     }
                 }
             }
+            g.translate(-(int)translateX, -(int)translateY);
         }
         public void mouseMoved(MouseEvent e) {
             for(int i=objects.size()-1; i>=0; i--) {
