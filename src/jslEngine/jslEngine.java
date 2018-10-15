@@ -162,8 +162,8 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
         }
         public void setTranslateX(float tx) { this.translateX = tx; }
         public void setTranslateY(float ty) { this.translateY = ty; }
-        public float getX() { return x;}
-        public float getY() { return y; }
+        public float getX() { return x+translateX; }
+        public float getY() { return y+translateY; }
         public float getW() { return w; }
         public float getH() { return h; }
         public float getVelX() { return velX; }
@@ -244,12 +244,15 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
     }
     // Object of this class is created (and called "jsl")
     public class jslManager {
+        private boolean autorender = true, autoupdate = true;
         private float translateX = 0, translateY = 0;
         private jslObject clickedOb = null;
         public jslSettings defaulButtonSettings = new jslSettings();
         public jslSettings onHoverButtonSettings = defaulButtonSettings;
         private LinkedList<jslObject> objects = new LinkedList<>();
         public jslManager() {}
+        public void setAutorender(boolean flag) { this.autorender = flag;}
+        public void setAutoupdate(boolean flag) { this.autoupdate = flag;}
         public void translate(float tx, float ty) {
             translateX(tx);
             translateY(ty);
@@ -279,19 +282,19 @@ public abstract class jslEngine extends Canvas implements Runnable, KeyListener,
             return button;
         }
         public void add(jslObject o) { objects.add(o); }
-        public void update(float et) {
-            for(jslObject o : objects) { o.update(et); }
-        }
+        public void update(float et) { if(autoupdate) { for(jslObject o : objects) { o.update(et); } } }
         public void render(Graphics g) {
-            g.translate((int)translateX, (int)translateY);
-            for(jslObject o : objects) {
-                if(o.settings.isVisible) {
-                    if(o.settings.isRendering) {
-                        o.render(g);
+            if(autorender) {
+                g.translate((int) translateX, (int) translateY);
+                for (jslObject o : objects) {
+                    if (o.settings.isVisible) {
+                        if (o.settings.isRendering) {
+                            o.render(g);
+                        }
                     }
                 }
+                g.translate(-(int) translateX, -(int) translateY);
             }
-            g.translate(-(int)translateX, -(int)translateY);
         }
         public void mouseMoved(MouseEvent e) {
             for(int i=objects.size()-1; i>=0; i--) {

@@ -10,12 +10,16 @@ public class MainClass extends jslEngine {
 
     private boolean allPointVisible = false;
     private jslButton newPoint;
+    private Pin pin;
+
 
     public MainClass() {
         start("Gwóźdź programu", 700, 450);
         setAntialiasing(true);
 
-        Pin pin = new Pin();
+        jsl.setAutorender(false);
+
+        pin = new Pin();
 
         newPoint = jsl.newButton("Nowy punkt");
 
@@ -27,7 +31,7 @@ public class MainClass extends jslEngine {
     }
 
     protected void render(Graphics g) {
-
+        pin.render(g);
     }
 
     public static void main(String[] args) {
@@ -58,18 +62,18 @@ public class MainClass extends jslEngine {
     private class Pin extends jslObject {
 
         private LinkedList<DotPair> dotPairs = new LinkedList<>();
-        private SingleDot end;
+        private End end;
         private Head head;
 
         public Pin() {
             x = WW()/2;
             w = 10;
-            dotPairs.add(new DotPair(x-w, 100));
-            dotPairs.add(new DotPair(x-w, 200));
-            dotPairs.add(new DotPair(x-w, 300));
+            dotPairs.add(new DotPair(0, 100));
+            dotPairs.add(new DotPair(0, 200));
+            dotPairs.add(new DotPair(0, 300));
 
-            head = new Head(x-w,40);
-            end = new SingleDot(x-w, WH()-40, null);
+            head = new Head(0,40);
+            end = new End(0, WH()-40, null);
         }
 
         public void update(float et) {
@@ -80,14 +84,14 @@ public class MainClass extends jslEngine {
 
         public void render(Graphics g) {
             if(dotPairs.size() > 0) {
-                int[] xP = new int[dotPairs.size()*2+2];
-                int[] yP = new int[dotPairs.size()*2+2];
+                int[] xP = new int[dotPairs.size()*2+3];
+                int[] yP = new int[dotPairs.size()*2+3];
 
                 int dw = (int) dotPairs.get(0).dots[0].getW();
                 int dh = (int) dotPairs.get(0).dots[0].getH();
 
-                xP[0] = (int)head.getX() + dw / 2;
-                yP[0] = (int)head.getY() + dh / 2;
+                xP[0] = (int)head.dots[0].getX() + dw / 2;
+                yP[0] = (int)head.dots[0].getY() + dh / 2;
 
                 for (int i = 0; i < dotPairs.size(); i++) {
                     DotPair d = dotPairs.get(i);
@@ -105,6 +109,9 @@ public class MainClass extends jslEngine {
                     xP[i + dotPairs.size() + 2] = (int) d.dots[1].getX() + dw / 2;
                     yP[i + dotPairs.size() + 2] = (int) d.dots[1].getY() + dh / 2;
                 }
+
+                xP[xP.length - 1] = (int)head.dots[1].getX() + dw / 2;
+                yP[yP.length - 1] = (int)head.dots[1].getY() + dh / 2;
 
                 g.setColor(new Color(209, 209, 209));
                 g.fillPolygon(xP, yP, xP.length);
@@ -187,12 +194,15 @@ public class MainClass extends jslEngine {
             }
         }
 
-        public void onEnter() {
+        public void onClick() {
             setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
         }
 
         public void onLeave() {
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        }
+        public void onUnclick() {
+            onLeave();
         }
 
         public void onDrag() {
@@ -255,7 +265,7 @@ public class MainClass extends jslEngine {
             pair.moved();
         }
 
-        public void onEnter() {
+        public void onClick() {
             settings = onHoverSettings;
             setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
         }
@@ -264,11 +274,14 @@ public class MainClass extends jslEngine {
             settings = defaultSettings;
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
+        public void onUnclick() {
+            onLeave();
+        }
     }
 
-    private class SingleDot extends Dot {
+    private class End extends Dot {
 
-        public SingleDot(float x, float y, DotPair pair) {
+        public End(float x, float y, DotPair pair) {
             super(x, y, pair);
             defaultSettings.bgColor =
             onHoverSettings.bgColor =
@@ -286,7 +299,7 @@ public class MainClass extends jslEngine {
             setY(ny);
         }
 
-        public void onEnter() {
+        public void onClick() {
             settings = onHoverSettings;
             setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
         }
@@ -295,18 +308,19 @@ public class MainClass extends jslEngine {
     private class Head extends DotPair {
 
         private float hx, hy;
-        private float hw = 30, hh = 15;
+        // how - Height Over Width
+        private float hw = 60, how = 0.25f;
 
         public Head(float x, float y) {
-            this.hx = x;
-            this.hy = y;
+            this.hx = x - hw*0.5f;
+            this.hy = y - 2;
 
             createDots(x, y);
         }
 
         public void render(Graphics g) {
             g.setColor(new Color(200, 200, 200));
-            g.fillOval((int)hx, (int)hy, (int)hw, (int)hh);
+            g.fillOval((int)hx, (int)hy, (int)hw, (int)(hw*how));
 
             if(hover) {
                 g.setColor(new Color(45, 27, 27));
